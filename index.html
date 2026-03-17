@@ -9,7 +9,7 @@
 :root {
   --bg: #0e1008; --surface: #161a0f; --surface2: #1e2415; --border: #2e3820;
   --green: #7eb84a; --green-dim: #4a7025; --gold: #c9a84c; --gold-dim: #7a5e20;
-  --red: #d64e3a; --blue: #4a9edd; --text: #e8e4d4; --text-dim: #8a8472; --text-muted: #4a4840;
+  --red: #d64e3a; --text: #e8e4d4; --text-dim: #8a8472; --text-muted: #4a4840;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100dvh; overflow-x: hidden; }
@@ -36,13 +36,6 @@ body::before { content: ''; position: fixed; inset: 0; background-image: radial-
 .section-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
 .section-title { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); flex: 1; }
 .section-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-.mode-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin: 0 16px 16px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
-.mode-btn { background: var(--surface); padding: 14px 10px; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; transition: background 0.15s; }
-.mode-btn.active { background: rgba(201,168,76,0.1); }
-.mode-icon { font-size: 22px; }
-.mode-label { font-family: 'Noto Serif TC', serif; font-size: 13px; color: var(--gold); }
-.mode-sub { font-size: 10px; color: var(--text-muted); }
-.mode-btn.active .mode-sub { color: var(--text-dim); }
 .winner-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
 .winner-btn { background: var(--surface); padding: 14px 8px; text-align: center; cursor: pointer; border: none; transition: background 0.15s; display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .winner-btn.selected { background: rgba(201,168,76,0.12); }
@@ -82,6 +75,7 @@ body::before { content: ''; position: fixed; inset: 0; background-image: radial-
 .fan-total-bar { margin: 0 16px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
 .fan-total-label { font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
 .fan-total-value { font-family: 'Noto Serif TC', serif; font-size: 28px; font-weight: 900; color: var(--gold); }
+.fan-total-pts { font-size: 13px; color: var(--gold-dim); margin-top: 2px; }
 .fan-total-cap { font-size: 11px; color: var(--text-muted); }
 .preview-box { margin: 0 16px 16px; background: var(--surface); border: 1px solid var(--gold-dim); border-radius: 12px; padding: 14px 16px; }
 .preview-title { font-size: 10px; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; }
@@ -102,10 +96,6 @@ body::before { content: ''; position: fixed; inset: 0; background-image: radial-
 .scan-btn:active { background: rgba(201,168,76,0.08); transform: scale(0.98); }
 .scan-btn .scan-icon { font-size: 24px; }
 .scan-btn-sub { font-size: 10px; color: var(--text-muted); font-family: 'DM Mono', monospace; margin-top: 2px; }
-.overhead-btn { width: 100%; padding: 20px 16px; background: var(--surface); border: 1.5px dashed var(--blue); border-radius: 14px; color: var(--blue); font-family: 'Noto Serif TC', serif; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; transition: all 0.2s; }
-.overhead-btn:active { background: rgba(74,158,221,0.06); transform: scale(0.98); }
-.overhead-btn .scan-icon { font-size: 28px; }
-.overhead-btn-sub { font-size: 10px; color: var(--text-muted); font-family: 'DM Mono', monospace; margin-top: 2px; }
 .scan-loading { margin: 0 16px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 16px; text-align: center; display: none; }
 .scan-loading-spinner { width: 32px; height: 32px; border: 2px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -120,45 +110,6 @@ body::before { content: ''; position: fixed; inset: 0; background-image: radial-
 .ai-reasoning { font-size: 11px; color: var(--text-dim); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 8px; }
 .ai-fans-applied { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
 .ai-fan-tag { background: rgba(126,184,74,0.12); border: 1px solid var(--green-dim); border-radius: 4px; padding: 2px 8px; font-size: 10px; color: var(--green); font-family: 'Noto Serif TC', serif; }
-.player-scan-grid { display: flex; flex-direction: column; gap: 8px; margin: 0 16px 12px; }
-.player-scan-row { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-.player-scan-top { display: flex; align-items: center; padding: 10px 14px; gap: 10px; }
-.player-scan-wind { font-family: 'Noto Serif TC', serif; font-size: 20px; color: var(--gold); width: 28px; }
-.player-scan-info { flex: 1; }
-.player-scan-name { font-size: 13px; color: var(--text); }
-.player-scan-status { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
-.player-scan-status.done { color: var(--green); }
-.player-scan-status.loading { color: var(--gold); }
-.player-scan-status.error { color: var(--red); }
-.player-scan-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 11px; cursor: pointer; white-space: nowrap; }
-.player-scan-btn.done { border-color: var(--green-dim); color: var(--green); }
-.player-scan-preview { width: 100%; height: 80px; object-fit: cover; display: none; border-top: 1px solid var(--border); }
-.player-scan-preview.show { display: block; }
-.analyse-all-btn { width: 100%; padding: 15px; background: var(--surface2); border: 1px solid var(--gold-dim); border-radius: 12px; color: var(--gold); font-family: 'Noto Serif TC', serif; font-size: 15px; cursor: pointer; transition: all 0.15s; margin: 0 0 12px; }
-.analyse-all-btn:active { transform: scale(0.98); }
-.analyse-all-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.ranking-panel { margin: 0 16px 16px; }
-.ranking-title { font-size: 11px; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
-.hand-rank-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 8px; overflow: hidden; cursor: pointer; transition: all 0.15s; }
-.hand-rank-card:active { transform: scale(0.98); }
-.hand-rank-card.selected { border-color: var(--gold); background: rgba(201,168,76,0.06); }
-.hand-rank-card.no-win { opacity: 0.5; cursor: default; }
-.hand-rank-top { display: flex; align-items: center; padding: 12px 14px; gap: 12px; }
-.rank-number { width: 26px; height: 26px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
-.hand-rank-card.selected .rank-number { background: var(--gold); border-color: var(--gold); color: var(--bg); }
-.rank-wind { font-family: 'Noto Serif TC', serif; font-size: 22px; color: var(--gold); width: 28px; }
-.rank-info { flex: 1; }
-.rank-name { font-size: 13px; color: var(--text); }
-.rank-tiles { font-size: 10px; color: var(--text-dim); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.rank-fan { text-align: right; }
-.rank-fan-num { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; color: var(--green); }
-.rank-fan-label { font-size: 9px; color: var(--text-muted); }
-.rank-fan-tags { padding: 0 14px 10px; display: flex; flex-wrap: wrap; gap: 4px; }
-.rank-tag { background: rgba(126,184,74,0.08); border: 1px solid var(--green-dim); border-radius: 4px; padding: 2px 7px; font-size: 10px; color: var(--green); font-family: 'Noto Serif TC', serif; }
-.rank-tag.no-win-tag { background: rgba(214,78,58,0.08); border-color: rgba(214,78,58,0.3); color: var(--red); }
-.ranking-confirm-btn { width: 100%; padding: 14px; background: var(--gold); color: var(--bg); border: none; border-radius: 10px; font-family: 'Noto Serif TC', serif; font-size: 16px; font-weight: 900; cursor: pointer; transition: all 0.15s; display: none; margin-bottom: 8px; }
-.ranking-confirm-btn.show { display: block; }
-.ranking-confirm-btn:active { transform: scale(0.98); }
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
 .modal-overlay.show { opacity: 1; pointer-events: all; }
 .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 20px 20px 0 0; width: 100%; max-width: 480px; padding: 20px 20px 40px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
@@ -209,13 +160,17 @@ body::before { content: ''; position: fixed; inset: 0; background-image: radial-
 .pulse-dot { display: inline-block; width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.fan-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 16px; }
+.fan-table th { background: var(--surface2); color: var(--gold); padding: 6px 4px; text-align: center; border: 1px solid var(--border); font-weight: 700; }
+.fan-table td { padding: 5px 4px; text-align: center; border: 1px solid var(--border); color: var(--text-dim); }
+.fan-table td.highlight { color: var(--green); font-weight: 700; }
 </style>
 </head><body>
 <div class="app">
   <div class="header">
     <div>
       <div class="header-title">雀 Mahjong Scorer</div>
-      <div class="header-sub">Hong Kong Old Style · 1 Base Point</div>
+      <div class="header-sub">Hong Kong Old Style · Half-Spicy</div>
     </div>
     <div class="round-badge">
       <div class="round-label">Round</div>
@@ -233,138 +188,88 @@ body::before { content: ''; position: fixed; inset: 0; background-image: radial-
       <div class="api-key-hint">Required for AI scanning. Get yours at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>. Saved locally only.</div>
     </div>
 
-    <div class="mode-toggle">
-      <button class="mode-btn active" id="modeManual" onclick="setMode('manual')">
-        <span class="mode-icon">✍️</span>
-        <span class="mode-label">Manual</span>
-        <span class="mode-sub">Select winner &amp; fans</span>
-      </button>
-      <button class="mode-btn" id="modeScan" onclick="setMode('scan')">
-        <span class="mode-icon">📷</span>
-        <span class="mode-label">Scan All Hands</span>
-        <span class="mode-sub">AI ranks &amp; picks winner</span>
-      </button>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-dot" style="background:var(--gold)"></div>
+        <div class="section-title">Winner 贏家</div>
+      </div>
+      <div class="winner-grid" id="winnerGrid"></div>
     </div>
 
-    <div id="manualMode">
-      <div class="section">
-        <div class="section-header">
-          <div class="section-dot" style="background:var(--gold)"></div>
-          <div class="section-title">Winner 贏家</div>
-        </div>
-        <div class="winner-grid" id="winnerGrid"></div>
+    <div class="section" id="winTypeSection" style="display:none">
+      <div class="section-header">
+        <div class="section-dot" style="background:var(--green)"></div>
+        <div class="section-title">Win Type 糊牌方式</div>
       </div>
-      <div class="section" id="winTypeSection" style="display:none">
-        <div class="section-header">
-          <div class="section-dot" style="background:var(--green)"></div>
-          <div class="section-title">Win Type 糊牌方式</div>
-        </div>
-        <div class="win-type-row">
-          <button class="win-type-btn selected" onclick="selectWinType('discard')" id="wt-discard"><span class="wt-cn">食糊</span><span class="wt-en">Discard Win</span></button>
-          <button class="win-type-btn" onclick="selectWinType('self')" id="wt-self"><span class="wt-cn">自摸</span><span class="wt-en">Self Draw</span></button>
-        </div>
-        <div id="discardSection" style="border-top:1px solid var(--border)">
-          <div style="padding:10px 16px 6px;font-size:10px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;">Discard from 放炮</div>
-          <div class="discard-grid" id="discardGrid"></div>
-        </div>
+      <div class="win-type-row">
+        <button class="win-type-btn selected" onclick="selectWinType('discard')" id="wt-discard"><span class="wt-cn">食糊</span><span class="wt-en">Discard Win</span></button>
+        <button class="win-type-btn" onclick="selectWinType('self')" id="wt-self"><span class="wt-cn">自摸</span><span class="wt-en">Self Draw</span></button>
       </div>
-      <div id="singleScanSection" style="display:none;margin:0 16px 16px;">
-        <button class="scan-btn" onclick="triggerSingleScan()">
-          <span class="scan-icon">📷</span>
-          <div><div>Scan Winning Hand</div><div class="scan-btn-sub">Auto-detect fans from photo</div></div>
-        </button>
-        <input type="file" id="singlePhotoInput" accept="image/*" capture="environment" style="display:none" onchange="handleSinglePhoto(event)">
+      <div id="discardSection" style="border-top:1px solid var(--border)">
+        <div style="padding:10px 16px 6px;font-size:10px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;">Discard from 放炮</div>
+        <div class="discard-grid" id="discardGrid"></div>
       </div>
-      <div id="singleScanPreview" style="display:none;margin:0 16px 12px;border-radius:12px;overflow:hidden;border:1px solid var(--border);position:relative;">
-        <img id="singleScannedImg" src="" style="width:100%;display:block;max-height:180px;object-fit:cover;">
-        <div style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.7);color:var(--gold);font-size:10px;padding:3px 8px;border-radius:4px;">📷 SCANNED</div>
-        <button onclick="triggerSingleScan()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.7);color:var(--text-dim);border:none;font-size:10px;padding:4px 8px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;">Retake</button>
+    </div>
+
+    <div id="singleScanSection" style="display:none;margin:0 16px 16px;">
+      <button class="scan-btn" onclick="triggerSingleScan()">
+        <span class="scan-icon">📷</span>
+        <div><div>Scan Winning Hand</div><div class="scan-btn-sub">Auto-detect fans from photo</div></div>
+      </button>
+      <input type="file" id="singlePhotoInput" accept="image/*" capture="environment" style="display:none" onchange="handleSinglePhoto(event)">
+    </div>
+
+    <div id="singleScanPreview" style="display:none;margin:0 16px 12px;border-radius:12px;overflow:hidden;border:1px solid var(--border);position:relative;">
+      <img id="singleScannedImg" src="" style="width:100%;display:block;max-height:180px;object-fit:cover;">
+      <div style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.7);color:var(--gold);font-size:10px;padding:3px 8px;border-radius:4px;">📷 SCANNED</div>
+      <button onclick="triggerSingleScan()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.7);color:var(--text-dim);border:none;font-size:10px;padding:4px 8px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;">Retake</button>
+    </div>
+    <div class="scan-loading" id="singleScanLoading"><div class="scan-loading-spinner"></div><div class="scan-loading-text">Analysing hand…</div><div class="scan-loading-sub">Identifying tiles and fans</div></div>
+    <div class="scan-error" id="singleScanError"></div>
+    <div class="ai-result" id="singleAiResult">
+      <div class="ai-result-header">
+        <div class="ai-result-title"><span class="pulse-dot"></span> AI Analysis</div>
+        <button class="ai-result-edit" onclick="showManualFans()">Edit fans</button>
       </div>
-      <div class="scan-loading" id="singleScanLoading"><div class="scan-loading-spinner"></div><div class="scan-loading-text">Analysing hand…</div><div class="scan-loading-sub">Identifying tiles and fans</div></div>
-      <div class="scan-error" id="singleScanError"></div>
-      <div class="ai-result" id="singleAiResult">
-        <div class="ai-result-header">
-          <div class="ai-result-title"><span class="pulse-dot"></span> AI Analysis</div>
-          <button class="ai-result-edit" onclick="showManualFans()">Edit fans</button>
-        </div>
-        <div class="ai-tiles" id="singleAiTiles"></div>
-        <div class="ai-fans-applied" id="singleAiFanTags"></div>
-        <div class="ai-reasoning" id="singleAiReasoning"></div>
+      <div class="ai-tiles" id="singleAiTiles"></div>
+      <div class="ai-fans-applied" id="singleAiFanTags"></div>
+      <div class="ai-reasoning" id="singleAiReasoning"></div>
+    </div>
+
+    <div class="section" id="fanSection" style="display:none">
+      <div class="section-header">
+        <div class="section-dot"></div>
+        <div class="section-title">Fan 番數</div>
+        <button onclick="hideFanSection()" style="background:none;border:none;color:var(--text-muted);font-size:10px;cursor:pointer;font-family:'DM Mono',monospace;">hide</button>
       </div>
-      <div class="section" id="fanSection" style="display:none">
-        <div class="section-header">
-          <div class="section-dot"></div>
-          <div class="section-title">Fan 番數</div>
-          <button onclick="hideFanSection()" style="background:none;border:none;color:var(--text-muted);font-size:10px;cursor:pointer;font-family:'DM Mono',monospace;">hide</button>
-        </div>
-        <div class="fan-list" id="fanList"></div>
-        <div class="flowers-row">
-          <div><div class="flowers-label">花牌 Flowers/Seasons</div><div class="flowers-sublabel">1 fan each</div></div>
-          <div class="stepper">
-            <button class="stepper-btn" onclick="changeFlowers(-1)">−</button>
-            <div class="stepper-val" id="flowersVal">0</div>
-            <button class="stepper-btn" onclick="changeFlowers(1)">+</button>
-          </div>
+      <div class="fan-list" id="fanList"></div>
+      <div class="flowers-row">
+        <div><div class="flowers-label">花牌 Flowers/Seasons</div><div class="flowers-sublabel">1 fan each</div></div>
+        <div class="stepper">
+          <button class="stepper-btn" onclick="changeFlowers(-1)">−</button>
+          <div class="stepper-val" id="flowersVal">0</div>
+          <button class="stepper-btn" onclick="changeFlowers(1)">+</button>
         </div>
       </div>
-      <div class="fan-total-bar" id="fanTotalBar" style="display:none">
-        <div><div class="fan-total-label">Total Fan</div><div class="fan-total-cap" id="fanCapNote"></div></div>
+    </div>
+
+    <div class="fan-total-bar" id="fanTotalBar" style="display:none">
+      <div>
+        <div class="fan-total-label">Total Fan</div>
+        <div class="fan-total-cap" id="fanCapNote"></div>
+      </div>
+      <div>
         <div class="fan-total-value" id="fanTotalDisplay">0 番</div>
+        <div class="fan-total-pts" id="fanPtsDisplay"></div>
       </div>
-      <div class="preview-box" id="previewBox" style="display:none">
-        <div class="preview-title">Payment Preview</div>
-        <div id="previewRows"></div>
-      </div>
-      <button class="calc-btn" id="calcBtn" onclick="openResult()" disabled>計算 Calculate</button>
     </div>
 
-    <div id="scanAllMode" style="display:none">
-      <div style="margin:0 16px 12px;">
-        <button class="overhead-btn" onclick="triggerOverheadScan()">
-          <span class="scan-icon">🔭</span>
-          <div><div>Scan Whole Table</div><div class="overhead-btn-sub">One overhead photo of all 4 hands</div></div>
-        </button>
-        <input type="file" id="overheadPhotoInput" accept="image/*" capture="environment" style="display:none" onchange="handleOverheadPhoto(event)">
-      </div>
-      <div id="overheadPreview" style="display:none;margin:0 16px 12px;border-radius:12px;overflow:hidden;border:1px solid var(--blue);position:relative;">
-        <img id="overheadImg" src="" style="width:100%;display:block;max-height:200px;object-fit:cover;">
-        <div style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.7);color:var(--blue);font-size:10px;padding:3px 8px;border-radius:4px;">🔭 TABLE SCAN</div>
-        <button onclick="triggerOverheadScan()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.7);color:var(--text-dim);border:none;font-size:10px;padding:4px 8px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;">Retake</button>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;margin:0 16px 16px;">
-        <div style="flex:1;height:1px;background:var(--border)"></div>
-        <div style="font-size:10px;color:var(--text-muted);letter-spacing:0.1em;">OR SCAN EACH PLAYER</div>
-        <div style="flex:1;height:1px;background:var(--border)"></div>
-      </div>
-      <div class="player-scan-grid" id="playerScanGrid"></div>
-      <input type="file" id="playerPhotoInput" accept="image/*" capture="environment" style="display:none" onchange="handlePlayerPhoto(event)">
-      <div style="margin:0 16px 12px;">
-        <button class="analyse-all-btn" id="analyseAllBtn" onclick="analyseAll()" disabled>🀄 Analyse All Hands</button>
-      </div>
-      <div class="scan-loading" id="multiScanLoading"><div class="scan-loading-spinner"></div><div class="scan-loading-text" id="multiLoadingText">Analysing all hands…</div><div class="scan-loading-sub">Claude is reading every tile</div></div>
-      <div class="scan-error" id="multiScanError"></div>
-      <div class="ranking-panel" id="rankingPanel" style="display:none">
-        <div class="ranking-title">Hands Ranked — Tap to Select Winner</div>
-        <div id="handRankList"></div>
-        <div id="rankWinTypeSection" style="display:none;margin-bottom:12px;">
-          <div class="section" style="margin:0 0 8px;">
-            <div class="section-header">
-              <div class="section-dot" style="background:var(--green)"></div>
-              <div class="section-title">Win Type 糊牌方式</div>
-            </div>
-            <div class="win-type-row">
-              <button class="win-type-btn selected" onclick="selectWinType('discard')" id="rank-wt-discard"><span class="wt-cn">食糊</span><span class="wt-en">Discard Win</span></button>
-              <button class="win-type-btn" onclick="selectWinType('self')" id="rank-wt-self"><span class="wt-cn">自摸</span><span class="wt-en">Self Draw</span></button>
-            </div>
-            <div id="rankDiscardSection" style="border-top:1px solid var(--border)">
-              <div style="padding:10px 16px 6px;font-size:10px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;">Discard from 放炮</div>
-              <div class="discard-grid" id="rankDiscardGrid"></div>
-            </div>
-          </div>
-        </div>
-        <button class="ranking-confirm-btn" id="rankingConfirmBtn" onclick="openResult()">計算 Calculate Winner</button>
-      </div>
+    <div class="preview-box" id="previewBox" style="display:none">
+      <div class="preview-title">Payment Preview</div>
+      <div id="previewRows"></div>
     </div>
+
+    <button class="calc-btn" id="calcBtn" onclick="openResult()" disabled>計算 Calculate</button>
   </div>
 
   <div class="tab" id="tab-history">
@@ -376,16 +281,22 @@ body::before { content: ''; position: fixed; inset: 0; background-image: radial-
 
   <div class="tab" id="tab-rules">
     <div style="padding:16px;font-size:12px;line-height:1.8;">
-      <div style="font-family:'Noto Serif TC',serif;font-size:18px;color:var(--gold);margin-bottom:12px;">Fan Reference 番數表</div>
+      <div style="font-family:'Noto Serif TC',serif;font-size:18px;color:var(--gold);margin-bottom:4px;">Fan Reference 番數表</div>
+      <div style="font-size:10px;color:var(--text-muted);margin-bottom:12px;">Hong Kong Old Style · Half-Spicy</div>
       <div id="rulesTable"></div>
-      <div style="margin-top:20px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;">
+      <div style="margin-top:20px;font-family:'Noto Serif TC',serif;font-size:15px;color:var(--gold);margin-bottom:8px;">Fan → Points Table</div>
+      <table class="fan-table">
+        <tr><th>Fan</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10+</th></tr>
+        <tr><th>Pts</th><td>1</td><td>2</td><td>4</td><td>8</td><td>16</td><td>24</td><td>32</td><td>48</td><td>64</td><td>96</td><td class="highlight">128</td></tr>
+      </table>
+      <div style="margin-top:4px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;">
         <div style="color:var(--text);margin-bottom:8px;font-size:13px;">Payment Rules</div>
         <div style="color:var(--text-dim);font-size:11px;line-height:1.9;">
-          <div>Base: <span style="color:var(--text)">1 point × 2^fan</span></div>
-          <div>Discard win: <span style="color:var(--text)">Shooter pays double, others single</span></div>
-          <div>Self-draw: <span style="color:var(--text)">All 3 losers pay double</span></div>
-          <div>Cap: <span style="color:var(--text)">8 fan max (滿貫)</span></div>
-          <div>Dealer wins: <span style="color:var(--text)">All payments × 2</span></div>
+          <div>Min fan: <span style="color:var(--text)">0 (any hand wins)</span></div>
+          <div>Fan cap: <span style="color:var(--text)">10 fan = 128 pts (滿貫)</span></div>
+          <div>Discard win: <span style="color:var(--text)">Shooter pays pts ×2, others pay pts ×1</span></div>
+          <div>Self-draw: <span style="color:var(--text)">All 3 losers pay pts ×2</span></div>
+          <div>Dealer wins: <span style="color:var(--text)">All payments ×2</span></div>
         </div>
       </div>
     </div>
@@ -422,9 +333,13 @@ body::before { content: ''; position: fixed; inset: 0; background-image: radial-
   <button class="nav-btn" id="nav-rules" onclick="switchTab('rules')"><span class="nav-icon">📖</span>Rules</button>
   <button class="nav-btn" id="nav-settings" onclick="openSettings()"><span class="nav-icon">⚙️</span>Settings</button>
 </div><script>
-const WINDS=['東','南','西','北'],WIND_EN=['East','South','West','North'],FAN_CAP=8;
+const WINDS=['東','南','西','北'],WIND_EN=['East','South','West','North'];
+const FAN_CAP=10;
+const FAN_PTS=[1,2,4,8,16,24,32,48,64,96,128];
+function fanToPoints(fan){return FAN_PTS[Math.min(fan,FAN_CAP)];}
+
 const FANS=[
-  {id:'chicken',cn:'雞糊',en:'Chicken Hand',fan:1,note:'min 1 fan'},
+  {id:'chicken',cn:'雞糊',en:'Chicken Hand',fan:0,note:'0 fan'},
   {id:'selfDraw',cn:'自摸',en:'Self Draw',fan:1,auto:true},
   {id:'allPong',cn:'對對糊',en:'All Pungs',fan:3},
   {id:'halfFlush',cn:'混一色',en:'Half Flush',fan:3},
@@ -453,16 +368,10 @@ let state={
   dealer:0,round:1,history:[],
   winner:null,winType:'discard',shooter:null,
   selectedFans:new Set(),flowers:0,
-  mode:'manual',
-  playerPhotos:[null,null,null,null],
-  playerAnalysis:[null,null,null,null],
-  overheadPhoto:null,
-  currentScanTarget:null,
-  rankedHands:[],
 };
 
 function init(){
-  renderScoreboard();renderWinnerGrid();renderFanList();renderRulesTable();renderPlayerScanGrid();updateCalcBtn();
+  renderScoreboard();renderWinnerGrid();renderFanList();renderRulesTable();updateCalcBtn();
   const saved=localStorage.getItem('mj_api_key');
   if(saved)document.getElementById('apiKeyInput').value=saved;
   document.getElementById('apiKeyInput').addEventListener('change',()=>localStorage.setItem('mj_api_key',document.getElementById('apiKeyInput').value.trim()));
@@ -470,14 +379,6 @@ function init(){
 
 function getApiKey(){const k=document.getElementById('apiKeyInput').value.trim();if(k)localStorage.setItem('mj_api_key',k);return k;}
 function checkApiKey(){const k=getApiKey();if(!k||!k.startsWith('sk-')){alert('Please enter your Anthropic API key to use scanning.');document.getElementById('apiKeyInput').focus();return false;}return true;}
-
-function setMode(m){
-  state.mode=m;
-  document.getElementById('modeManual').className='mode-btn'+(m==='manual'?' active':'');
-  document.getElementById('modeScan').className='mode-btn'+(m==='scan'?' active':'');
-  document.getElementById('manualMode').style.display=m==='manual'?'':'none';
-  document.getElementById('scanAllMode').style.display=m==='scan'?'':'none';
-}
 
 function renderScoreboard(){
   document.getElementById('scoreboard').innerHTML=state.players.map((p,i)=>{
@@ -511,23 +412,16 @@ function selectWinner(i){
 }
 
 function selectWinType(type){
-  state.winType=type;
-  updateWinTypeUI();updateRankWinTypeUI();
+  state.winType=type;updateWinTypeUI();
   if(type==='self'){state.shooter=null;state.selectedFans.add('selfDraw');}
   else state.selectedFans.delete('selfDraw');
-  renderFanList();updateFanTotal();updatePreview();updateCalcBtn();updateRankCalcBtn();
+  renderFanList();updateFanTotal();updatePreview();updateCalcBtn();
 }
 
 function updateWinTypeUI(){
   ['wt-discard','wt-self'].forEach(id=>{const el=document.getElementById(id);if(el)el.className='win-type-btn'+(state.winType===(id.includes('self')?'self':'discard')?' selected':'');});
   const ds=document.getElementById('discardSection');if(ds)ds.style.display=state.winType==='discard'?'':'none';
   renderDiscard();
-}
-
-function updateRankWinTypeUI(){
-  ['rank-wt-discard','rank-wt-self'].forEach(id=>{const el=document.getElementById(id);if(el)el.className='win-type-btn'+(state.winType===(id.includes('self')?'self':'discard')?' selected':'');});
-  const rds=document.getElementById('rankDiscardSection');if(rds)rds.style.display=state.winType==='discard'?'':'none';
-  renderRankDiscard();
 }
 
 function renderDiscard(){
@@ -539,17 +433,7 @@ function renderDiscard(){
   ).join('');
 }
 
-function renderRankDiscard(){
-  const grid=document.getElementById('rankDiscardGrid');if(!grid)return;
-  grid.innerHTML=state.players.map((p,i)=>i===state.winner?'':
-    `<button class="discard-btn ${state.shooter===i?'selected':''}" onclick="selectShooterRank(${i})">
-      <span class="wind">${WINDS[i]}</span><span class="name">${p.name}</span>
-    </button>`
-  ).join('');
-}
-
-function selectShooter(i){state.shooter=i;renderDiscard();renderRankDiscard();updatePreview();updateCalcBtn();updateRankCalcBtn();}
-function selectShooterRank(i){state.shooter=i;renderRankDiscard();updateRankCalcBtn();}
+function selectShooter(i){state.shooter=i;renderDiscard();updatePreview();updateCalcBtn();}
 
 function renderFanList(){
   const list=document.getElementById('fanList');if(!list)return;
@@ -558,7 +442,7 @@ function renderFanList(){
     return`<div class="fan-item ${sel?'selected':''}" onclick="toggleFan('${f.id}')">
       <div class="fan-checkbox">${sel?'✓':''}</div>
       <div class="fan-info"><div class="fan-cn">${f.cn}</div><div class="fan-en">${f.en}${f.note?' · '+f.note:''}</div></div>
-      <div class="fan-value">${f.special?'×2 payments':f.fan+' 番'}</div>
+      <div class="fan-value">${f.special?'×2 pay':f.fan+' 番'}</div>
     </div>`;
   }).join('');
 }
@@ -589,34 +473,32 @@ function changeFlowers(d){
 function calcFan(){
   let fan=0,isDealer2x=false;
   for(const id of state.selectedFans){const f=FANS.find(x=>x.id===id);if(!f)continue;if(f.special==='dealer2x'){isDealer2x=true;continue;}fan+=f.fan;}
-  fan+=state.flowers;fan=Math.min(fan,FAN_CAP);
-  return{fan,isDealer2x};
-}
-
-function calcFanFromIds(ids,flowers){
-  let fan=0,isDealer2x=false;
-  for(const id of(ids||[])){const f=FANS.find(x=>x.id===id);if(!f)continue;if(f.special==='dealer2x'){isDealer2x=true;continue;}fan+=f.fan;}
-  fan+=parseInt(flowers)||0;fan=Math.min(fan,FAN_CAP);
-  return{fan,isDealer2x};
+  fan+=state.flowers;
+  const capped=fan>=FAN_CAP;
+  fan=Math.min(fan,FAN_CAP);
+  return{fan,isDealer2x,capped};
 }
 
 function calcPayments(){
   if(state.winner===null)return null;
   const{fan,isDealer2x}=calcFan();
-  const base=Math.pow(2,fan),m=isDealer2x?2:1;
+  const pts=fanToPoints(fan);
+  const m=isDealer2x?2:1;
   let payments=[0,0,0,0];
   if(state.winType==='self'){
-    for(let i=0;i<4;i++){if(i===state.winner)continue;const pay=base*2*m;payments[i]=-pay;payments[state.winner]+=pay;}
+    for(let i=0;i<4;i++){if(i===state.winner)continue;const pay=pts*2*m;payments[i]=-pay;payments[state.winner]+=pay;}
   }else{
-    for(let i=0;i<4;i++){if(i===state.winner)continue;const pay=(i===state.shooter?base*2:base)*m;payments[i]=-pay;payments[state.winner]+=pay;}
+    for(let i=0;i<4;i++){if(i===state.winner)continue;const pay=(i===state.shooter?pts*2:pts)*m;payments[i]=-pay;payments[state.winner]+=pay;}
   }
-  return{payments,fan,base,isDealer2x};
+  return{payments,fan,pts,isDealer2x};
 }
 
 function updateFanTotal(){
-  const{fan}=calcFan();const capped=fan>=FAN_CAP;
-  document.getElementById('fanTotalDisplay').textContent=`${fan} 番${capped?' (滿貫)':''}`;
-  document.getElementById('fanCapNote').textContent=capped?'Maximum reached':`cap: ${FAN_CAP}`;
+  const{fan,capped}=calcFan();
+  const pts=fanToPoints(fan);
+  document.getElementById('fanTotalDisplay').textContent=`${fan} 番`;
+  document.getElementById('fanPtsDisplay').textContent=`${pts} pts${capped?' (滿貫)':''}`;
+  document.getElementById('fanCapNote').textContent=capped?'Maximum reached':`cap: ${FAN_CAP} fan`;
 }
 
 function updatePreview(){
@@ -624,15 +506,17 @@ function updatePreview(){
   if(state.winner===null||(state.winType==='discard'&&state.shooter===null)){box.style.display='none';return;}
   const result=calcPayments();if(!result){box.style.display='none';return;}
   box.style.display='';
-  const{payments,fan,base}=result;
+  const{payments,fan,pts}=result;
   document.getElementById('previewRows').innerHTML=`
     <div class="preview-row"><span>Fan</span><span>${fan} 番</span></div>
-    <div class="preview-row"><span>Base value</span><span>${base} pts</span></div>
+    <div class="preview-row"><span>Points value</span><span>${pts} pts</span></div>
     ${state.players.map((p,i)=>{const amt=payments[i];return`<div class="preview-row ${i===state.winner?'highlight':''}"><span>${WINDS[i]} ${p.name}</span><span>${amt>=0?'+':''}${amt}</span></div>`;}).join('')}`;
 }
 
-function updateCalcBtn(){document.getElementById('calcBtn').disabled=!(state.winner!==null&&(state.winType==='self'||state.shooter!==null));}
-function updateRankCalcBtn(){const btn=document.getElementById('rankingConfirmBtn');const ready=state.winner!==null&&(state.winType==='self'||state.shooter!==null);btn.className='ranking-confirm-btn'+(ready?' show':'');}
+function updateCalcBtn(){
+  const ready=state.winner!==null&&(state.winType==='self'||state.shooter!==null);
+  document.getElementById('calcBtn').disabled=!ready;
+}
 
 function triggerSingleScan(){if(!checkApiKey())return;document.getElementById('singlePhotoInput').click();}
 function handleSinglePhoto(event){
@@ -670,138 +554,10 @@ function applyAIResult(result){
   document.getElementById('singleAiReasoning').textContent=`[${result.confidence||'?'} confidence] ${result.reasoning||''}`;
   document.getElementById('singleAiFanTags').innerHTML=applied.length
     ?applied.map(f=>`<span class="ai-fan-tag">${f.cn} ${f.special?'×2':f.fan+'番'}</span>`).join('')+(state.flowers>0?`<span class="ai-fan-tag">花牌 ${state.flowers}番</span>`:'')
-    :'<span style="color:var(--text-muted);font-size:11px;">No special fans</span>';
+    :'<span style="color:var(--text-muted);font-size:11px;">No special fans (雞糊)</span>';
   document.getElementById('fanSection').style.display='';
   document.getElementById('fanTotalBar').style.display='';
   renderFanList();updateFanTotal();updatePreview();updateCalcBtn();
-}
-
-function renderPlayerScanGrid(){
-  document.getElementById('playerScanGrid').innerHTML=state.players.map((p,i)=>{
-    const analysis=state.playerAnalysis[i],photo=state.playerPhotos[i];
-    let statusText='No photo yet',statusClass='',btnText='📷 Scan',btnClass='';
-    if(photo==='loading'){statusText='Analysing…';statusClass='loading';btnText='⏳';}
-    else if(analysis){statusText=`✓ ${analysis.fan}番 — ${analysis.tiles?analysis.tiles.substring(0,28)+'…':'analysed'}`;statusClass='done';btnText='📷 Retake';btnClass='done';}
-    else if(photo){statusText='Photo ready';btnText='📷 Retake';}
-    return`<div class="player-scan-row" id="psrow-${i}">
-      <div class="player-scan-top">
-        <div class="player-scan-wind">${WINDS[i]}</div>
-        <div class="player-scan-info"><div class="player-scan-name">${p.name}</div><div class="player-scan-status ${statusClass}" id="psstatus-${i}">${statusText}</div></div>
-        <button class="player-scan-btn ${btnClass}" onclick="triggerPlayerScan(${i})">${btnText}</button>
-      </div>
-      <img class="player-scan-preview ${photo&&photo!=='loading'?'show':''}" id="psimg-${i}" src="${photo&&photo!=='loading'?photo.dataUrl:''}">
-    </div>`;
-  }).join('');
-  updateAnalyseAllBtn();
-}
-
-function triggerPlayerScan(i){if(!checkApiKey())return;state.currentScanTarget=i;document.getElementById('playerPhotoInput').click();}
-function handlePlayerPhoto(event){
-  const file=event.target.files[0];if(!file)return;event.target.value='';
-  const i=state.currentScanTarget;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const dataUrl=e.target.result;
-    state.playerPhotos[i]={dataUrl,b64:dataUrl.split(',')[1],mimeType:file.type||'image/jpeg'};
-    state.playerAnalysis[i]=null;
-    const img=document.getElementById(`psimg-${i}`);if(img){img.src=dataUrl;img.className='player-scan-preview show';}
-    const st=document.getElementById(`psstatus-${i}`);if(st){st.textContent='Photo ready';st.className='player-scan-status';}
-    updateAnalyseAllBtn();
-  };
-  reader.readAsDataURL(file);
-}
-
-function updateAnalyseAllBtn(){document.getElementById('analyseAllBtn').disabled=!state.playerPhotos.some(p=>p&&p!=='loading');}
-
-function triggerOverheadScan(){if(!checkApiKey())return;document.getElementById('overheadPhotoInput').click();}
-function handleOverheadPhoto(event){
-  const file=event.target.files[0];if(!file)return;event.target.value='';
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const dataUrl=e.target.result;
-    state.overheadPhoto={dataUrl,b64:dataUrl.split(',')[1],mimeType:file.type||'image/jpeg'};
-    document.getElementById('overheadImg').src=dataUrl;
-    document.getElementById('overheadPreview').style.display='';
-    document.getElementById('rankingPanel').style.display='none';
-    document.getElementById('multiScanError').style.display='none';
-    analyseOverhead();
-  };
-  reader.readAsDataURL(file);
-}
-
-async function analyseOverhead(){
-  document.getElementById('multiScanLoading').style.display='';
-  document.getElementById('multiLoadingText').textContent='Analysing whole table…';
-  document.getElementById('multiScanError').style.display='none';
-  document.getElementById('rankingPanel').style.display='none';
-  try{const result=await callVisionAPI(state.overheadPhoto.b64,state.overheadPhoto.mimeType,buildOverheadPrompt());applyMultiHandResult(result.hands||[]);}
-  catch(err){document.getElementById('multiScanLoading').style.display='none';showError('multiScanError',err.message);}
-}async function analyseAll(){
-  if(!checkApiKey())return;
-  const toProcess=state.playerPhotos.map((p,i)=>({photo:p,index:i})).filter(x=>x.photo&&x.photo!=='loading');
-  if(!toProcess.length)return;
-  document.getElementById('multiScanLoading').style.display='';
-  document.getElementById('rankingPanel').style.display='none';
-  document.getElementById('multiScanError').style.display='none';
-  const savedPhotos=[...state.playerPhotos];
-  try{
-    for(const{photo,index}of toProcess){
-      document.getElementById('multiLoadingText').textContent=`Analysing ${WINDS[index]} ${state.players[index].name}…`;
-      const raw=await callVisionAPI(photo.b64,photo.mimeType,buildSingleHandPrompt(index));
-      const{fan}=calcFanFromIds(raw.fans||[],raw.flowers||0);
-      state.playerAnalysis[index]={...raw,playerIndex:index,fan};
-      renderPlayerScanGrid();
-    }
-    document.getElementById('multiScanLoading').style.display='none';
-    applyMultiHandResult(state.players.map((_,i)=>state.playerAnalysis[i]?{...state.playerAnalysis[i],playerIndex:i}:null).filter(Boolean));
-  }catch(err){
-    document.getElementById('multiScanLoading').style.display='none';
-    showError('multiScanError',err.message);
-    state.playerPhotos=savedPhotos;renderPlayerScanGrid();
-  }
-}
-
-function applyMultiHandResult(hands){
-  document.getElementById('multiScanLoading').style.display='none';
-  const scored=hands.map(h=>{const{fan}=calcFanFromIds(h.fans||[],h.flowers||0);return{...h,fan};}).sort((a,b)=>b.fan-a.fan);
-  state.rankedHands=scored;
-  renderRankedHands(scored);
-  document.getElementById('rankingPanel').style.display='';
-  document.getElementById('rankingPanel').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-function renderRankedHands(ranked){
-  document.getElementById('handRankList').innerHTML=ranked.map((h,rank)=>{
-    const i=h.playerIndex,p=state.players[i],isWinner=state.winner===i,canWin=h.fan>0;
-    const appliedFans=(h.fans||[]).filter(id=>id!=='selfDraw').map(id=>FANS.find(f=>f.id===id)).filter(Boolean);
-    return`<div class="hand-rank-card ${isWinner?'selected':''} ${!canWin?'no-win':''}" onclick="${canWin?`selectRankedWinner(${i})`:''}">
-      <div class="hand-rank-top">
-        <div class="rank-number">${rank+1}</div>
-        <div class="rank-wind">${WINDS[i]}</div>
-        <div class="rank-info"><div class="rank-name">${p.name}</div><div class="rank-tiles">${h.tiles||'No tiles identified'}</div></div>
-        <div class="rank-fan"><div class="rank-fan-num">${h.fan}</div><div class="rank-fan-label">番</div></div>
-      </div>
-      <div class="rank-fan-tags">
-        ${appliedFans.length
-          ?appliedFans.map(f=>`<span class="rank-tag">${f.cn} ${f.special?'×2':f.fan+'番'}</span>`).join('')+(h.flowers>0?`<span class="rank-tag">花牌 ${h.flowers}番</span>`:'')
-          :`<span class="rank-tag no-win-tag">No winning hand</span>`}
-        ${h.confidence?`<span style="font-size:9px;color:var(--text-muted);padding:2px 4px;">${h.confidence} confidence</span>`:''}
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function selectRankedWinner(i){
-  state.winner=i;state.shooter=null;state.winType='discard';state.selectedFans.clear();state.flowers=0;
-  const analysis=state.rankedHands.find(h=>h.playerIndex===i);
-  if(analysis){
-    for(const id of(analysis.fans||[]))if(id!=='selfDraw')state.selectedFans.add(id);
-    state.flowers=parseInt(analysis.flowers)||0;
-    if(analysis.winType==='self')state.winType='self';
-  }
-  renderRankedHands(state.rankedHands);renderScoreboard();renderRankDiscard();updateRankWinTypeUI();
-  document.getElementById('rankWinTypeSection').style.display='';
-  updateRankCalcBtn();
 }
 
 async function callVisionAPI(b64,mimeType,prompt){
@@ -817,28 +573,20 @@ async function callVisionAPI(b64,mimeType,prompt){
   return JSON.parse(raw.replace(/```json|```/g,'').trim());
 }
 
-function buildSingleHandPrompt(playerIndex){
+function buildSingleHandPrompt(){
   return`You are an expert Hong Kong Old Style Mahjong scorer. Analyse this photo of a mahjong hand (tiles may be flat or upright). Respond ONLY with JSON (no markdown):
 {"tiles":"tile description","fans":["fan_ids"],"flowers":0,"reasoning":"brief explanation","confidence":"high|medium|low","winType":"self|discard|unknown"}
-Valid fan IDs: chicken(1fan), allPong(3), halfFlush(3), fullFlush(7), mixedTerminal(5), pureTerminal(10), allHonors(10), smallDragon(5), bigDragon(8), smallWinds(6), bigWinds(10), thirteenOrphans(13), nineTiles(10), sevenPairs(4), hiddenSelf(1), dragonPung(1 per set), dealerWin(×2 payments), lastTile(1), robbingKong(1), winOnKong(1), allKong(8).
-Do NOT include "selfDraw". Only include clearly applicable fans. If no special fans, include "chicken".${playerIndex!==undefined?` This is ${WINDS[playerIndex]} ${state.players[playerIndex]?.name}.`:''}`;
-}
-
-function buildOverheadPrompt(){
-  return`You are an expert Hong Kong Old Style Mahjong scorer. This overhead photo shows all 4 players' mahjong hands.
-Players: ${state.players.map((p,i)=>`${WINDS[i]}(index ${i}): ${p.name}`).join(', ')}
-Identify each player's hand. Respond ONLY with JSON (no markdown):
-{"hands":[{"playerIndex":0,"tiles":"description","fans":["ids"],"flowers":0,"reasoning":"brief","confidence":"high|medium|low","winType":"self|discard|unknown"}]}
-Valid fan IDs: chicken(1), allPong(3), halfFlush(3), fullFlush(7), mixedTerminal(5), pureTerminal(10), allHonors(10), smallDragon(5), bigDragon(8), smallWinds(6), bigWinds(10), thirteenOrphans(13), nineTiles(10), sevenPairs(4), hiddenSelf(1), dragonPung(1), dealerWin(×2), lastTile(1), robbingKong(1), winOnKong(1), allKong(8). Do NOT include selfDraw. No special fans = include "chicken".`;
+Valid fan IDs: chicken(0fan - use when no special fans), allPong(3), halfFlush(3), fullFlush(7), mixedTerminal(5), pureTerminal(10), allHonors(10), smallDragon(5), bigDragon(8), smallWinds(6), bigWinds(10), thirteenOrphans(13), nineTiles(10), sevenPairs(4), hiddenSelf(1), dragonPung(1 per set), dealerWin(x2 payments), lastTile(1), robbingKong(1), winOnKong(1), allKong(8).
+Do NOT include "selfDraw". Min fan is 0 so any hand is valid. If no special fans, include "chicken".`;
 }
 
 function showError(elId,msg){const el=document.getElementById(elId);if(el){el.style.display='';el.textContent=`⚠️ ${msg}. Check your API key and try again.`;}}
 
 function openResult(){
   const result=calcPayments();if(!result)return;
-  const{payments,fan}=result;
+  const{payments,fan,pts}=result;
   document.getElementById('resultTitle').textContent=`${WINDS[state.winner]} ${state.players[state.winner].name} 贏！`;
-  document.getElementById('resultSubtitle').textContent=`${fan} 番 · ${state.winType==='self'?'自摸':'食糊'}`;
+  document.getElementById('resultSubtitle').textContent=`${fan} 番 · ${pts} pts · ${state.winType==='self'?'自摸':'食糊'}`;
   document.getElementById('resultGrid').innerHTML=state.players.map((p,i)=>{
     const amt=payments[i],cls=amt>0?'pos':amt<0?'neg':'zero';
     return`<div class="result-row ${i===state.winner?'winner-row':''}"><div class="result-player"><span class="result-wind">${WINDS[i]}</span><span class="result-name">${p.name}</span></div><div class="result-amount ${cls}">${amt>=0?'+':''}${amt}</div></div>`;
@@ -851,19 +599,17 @@ function closeResult(){document.getElementById('resultModal').classList.remove('
 
 function confirmResult(){
   const result=calcPayments();if(!result)return;
-  const{payments,fan}=result;
+  const{payments,fan,pts}=result;
   state.players.forEach((p,i)=>{p.score+=payments[i];});
-  state.history.unshift({round:state.round,desc:`${WINDS[state.winner]} ${state.players[state.winner].name} won (${fan}番 ${state.winType==='self'?'自摸':'食'+(state.players[state.shooter]?.name||'')+'糊'})`,payments:[...payments]});
+  state.history.unshift({round:state.round,desc:`${WINDS[state.winner]} ${state.players[state.winner].name} won (${fan}番 ${pts}pts ${state.winType==='self'?'自摸':'食'+(state.players[state.shooter]?.name||'')+'糊'})`,payments:[...payments]});
   state.round++;
   if(state.winner!==state.dealer)state.dealer=(state.dealer+1)%4;
   state.winner=null;state.winType='discard';state.shooter=null;state.selectedFans.clear();state.flowers=0;
-  state.playerPhotos=[null,null,null,null];state.playerAnalysis=[null,null,null,null];state.overheadPhoto=null;state.rankedHands=[];
   closeResult();
-  renderScoreboard();renderWinnerGrid();renderDiscard();renderFanList();renderPlayerScanGrid();
-  ['winTypeSection','singleScanSection','fanSection','fanTotalBar','previewBox','singleScanPreview','singleAiResult','singleScanError','singleScanLoading','multiScanLoading','multiScanError','rankingPanel','rankWinTypeSection','overheadPreview'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  renderScoreboard();renderWinnerGrid();renderDiscard();renderFanList();
+  ['winTypeSection','singleScanSection','fanSection','fanTotalBar','previewBox','singleScanPreview','singleAiResult','singleScanError','singleScanLoading'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   document.getElementById('flowersVal').textContent='0';
   document.getElementById('roundNum').textContent=state.round;
-  document.getElementById('rankingConfirmBtn').className='ranking-confirm-btn';
   updateCalcBtn();renderHistory();
 }
 
@@ -885,7 +631,7 @@ function openSettings(){
 function saveSettings(){
   state.players.forEach((p,i)=>{const v=document.getElementById(`nameInput-${i}`)?.value.trim();if(v)p.name=v;});
   document.getElementById('settingsOverlay').classList.remove('show');
-  renderScoreboard();renderWinnerGrid();renderDiscard();renderPlayerScanGrid();
+  renderScoreboard();renderWinnerGrid();renderDiscard();
 }
 
 function resetGame(){
@@ -893,10 +639,9 @@ function resetGame(){
   state.players.forEach(p=>{p.score=0;});
   state.dealer=0;state.round=1;state.history=[];
   state.winner=null;state.winType='discard';state.shooter=null;state.selectedFans.clear();state.flowers=0;
-  state.playerPhotos=[null,null,null,null];state.playerAnalysis=[null,null,null,null];state.overheadPhoto=null;state.rankedHands=[];
   document.getElementById('settingsOverlay').classList.remove('show');
   document.getElementById('roundNum').textContent='1';document.getElementById('flowersVal').textContent='0';
-  renderScoreboard();renderWinnerGrid();renderPlayerScanGrid();renderHistory();updateCalcBtn();
+  renderScoreboard();renderWinnerGrid();renderHistory();updateCalcBtn();
 }
 
 function switchTab(name){
